@@ -17,6 +17,8 @@ build = {
       ["config.env"] = "config/env.lua",
       ["lib.json"] = "lib/json.lua",
       main = "main.lua",
-      ["services.bored-data"] = "services/bored-data.lua"
+      ["services.bored-data"] = "services/bored-data.lua",
+      ["utils.misc"] = "utils/misc.lua",
+      ["utils.menu"] = "utils/menu.lua"
    }
 }
