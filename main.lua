@@ -1,13 +1,14 @@
 local boredDataService = require "services.bored-data"
 local utilsMenu = require "utils.menu"
+local utilsMisc = require "utils.misc"
+
 
 local function main()
-  local result = boredDataService.getRandomActivity()
-  if (result.error) then
-    error(result.error)
-    return
+  local function errorHandler(error)
+    print("ERROR: ", error)
   end
 
+  local status, result = xpcall(boredDataService.getRandomActivity, errorHandler)
   print("Getting bored? Let's do this")
   if result and result.activity then
     print(result.activity)
@@ -15,15 +16,17 @@ local function main()
     print("Learn how to code a programming language")
   end
 
-  local isStillBoring
+  local anwser
   print("Still boring? (Y/n)")
   repeat
-    isStillBoring = io.read();
-    if isStillBoring == "Y" then
+    anwser = io.read();
+    if utilsMisc.isYes(anwser) then
+      utilsMisc.clear();
       utilsMenu.askMenu()
     end
     return
-  until isStillBoring == "Y"
+  until utilsMisc.isYes(anwser)
 end
+print(package.config:sub(1,1))
 
 main()

@@ -7,7 +7,6 @@ local function getRandomActivity()
   local body = assert(stream:get_body_as_string())
   if headers:get ":status" ~= "200" then
     error(body)
-    return {error = body}
   end
   local json_data = json.decode(body);
   return json_data

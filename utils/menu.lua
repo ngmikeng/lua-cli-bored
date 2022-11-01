@@ -40,14 +40,26 @@ local function askOpenFile()
   until filePath and file
 end
 
+local function getMenu()
+  return [[
+  ***
+  Please input a number for selecting an option below
+  ================================
+  1. Summarize values in a range
+  2. Try open a file
+  ================================
+  ]]
+end
+
 local function askMenu()
   
   local function retry()
     local input
     repeat
-      print("Do want to continue? Y/n")
+      print("Do you want to continue? Y/n")
       input = io.read()
-    until input == "Y" or input == "n"
+      utilsMisc.clear();
+    until utilsMisc.isYes(input) or utilsMisc.isNo(input)
     return input
   end
 
@@ -55,21 +67,18 @@ local function askMenu()
   local isCorrectOption = false;
   local isRetry = false
   repeat
-    print("***")
-    print("Please input a number for selecting an option below")
-    print("================================")
-    print("1. Summarize values in a range")
-    print("2. Try open a file")
-    print("================================")
+    print(getMenu())
     option = io.read()
     if option == "1" then
+      utilsMisc.clear();
       askSumRange()
       isCorrectOption = true
-      isRetry = retry() == "Y"
+      isRetry = utilsMisc.isYes(retry())
     elseif option == "2" then
+      utilsMisc.clear();
       askOpenFile()
       isCorrectOption = true
-      isRetry = retry() == "Y"
+      isRetry = utilsMisc.isYes(retry())
     end  
   until isCorrectOption == true and isRetry == false
 end

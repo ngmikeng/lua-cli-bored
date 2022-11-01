@@ -27,7 +27,30 @@ local function sumRange(startValue, endValue)
   return total
 end
 
+local function isUnix()
+  return package.config:sub(1,1) == "/"
+end
+
+local function clear()
+  if isUnix() then
+    os.execute("clear")
+  else 
+    os.execute("cls")
+  end
+end
+
+local function isYes(value)
+  return value and string.lower(value) == "y"
+end
+
+local function isNo(value)
+  return value and string.lower(value) == "n"
+end
+
 return {
   reduce = reduce,
-  sumRange = sumRange
+  sumRange = sumRange,
+  isYes = isYes,
+  isNo = isNo,
+  clear = clear
 }
